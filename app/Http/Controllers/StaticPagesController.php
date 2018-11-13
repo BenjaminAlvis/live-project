@@ -23,4 +23,8 @@ class StaticPagesController extends Controller
     {
         return view('static_pages/about');
     }
+    public function test()
+    {
+        return '123';
+    }
 }
