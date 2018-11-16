@@ -23,8 +23,16 @@ class StaticPagesController extends Controller
     {
         return view('static_pages/about');
     }
-    public function test()
+    public function test(Request $request)
     {
-        return '123';
+        $data= $request->getContent();
+        $data = json_decode($data);
+        $value = $data["username"];
+        $userid = 1;
+
+        return response()->json([
+            'username' => $value,
+            'userid' => $userid
+        ]);
     }
 }
