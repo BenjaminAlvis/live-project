@@ -9,7 +9,7 @@
       请按“开始抽奖”按钮开始填写抽奖规则
     </p>
     <p>
-      <a class="btn btn-lg btn-success" href="{{route('signup')}}" role="button">开始抽奖</a>
+      <a class="btn btn-lg btn-success" href="/draw" role="button">开始抽奖</a>
     </p>
   </div>
 @stop
