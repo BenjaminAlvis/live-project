@@ -36,22 +36,31 @@ class LottoryController extends Controller
                 }
         }
         
-        $luckyDog = []; // 中奖幸运儿
-        $validRecordsCount = count($validRecords); // 有资格参与抽奖的人的数量比预设中奖人数还少，就全体中奖
+        // 由于可能存在重复的QQ号，设计如下逻辑：遍历validRecords，将其中的qqnumber存入validQQnumber数组，**去重**
 
-        if($validRecordsCount < $request->people_number)
+        $validQQnumber = [];
+        foreach($validRecords as $record)
         {
-            $luckyDog = $validRecords;
+            if(in_array($record->qqnumber , $validQQnumber) == false)
+                array_push($validQQnumber, $record->qqnumber);
+        }
+
+
+        $luckyDog = []; // 中奖幸运儿
+        $validQQCount = count($validQQnumber); // 有资格参与抽奖的人的数量比预设中奖人数还少，就全体中奖
+
+        if($validQQCount < $request->people_number)
+        {
+            $luckyDog = $validQQnumber;
             return $luckyDog;
         }
         // 如果没进上面的if分支，意味着参与抽奖的人数大于可中奖人数。
         
         for ($ii=0; $ii < $request->people_number; $ii++)
         {
-            $randNum = mt_rand(0, count($validRecords)-1);
-            //$luckyDog.append($validRecords[$randNum]->qqnumber);
-            array_push($luckyDog, $validRecords[$randNum]->qqnumber);
-            array_splice($validRecords, $randNum,1);
+            $randNum = mt_rand(0, count($validQQnumber)-1);
+            array_push($luckyDog, $validQQnumber[$randNum]);
+            array_splice($validQQnumber, $randNum,1);
         }
         return $luckyDog;
     }
