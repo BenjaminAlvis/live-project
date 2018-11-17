@@ -8,7 +8,7 @@
       <h5>抽奖规则填写</h5>
     </div>
     <div class="panel-body">
-      <!--@include('shared._errors')-->
+      @include('shared._errors')
 
       <form method="POST" action="{{ route('draw.store') }}">
           {{ csrf_field() }}

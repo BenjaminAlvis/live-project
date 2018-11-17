@@ -14,6 +14,16 @@ class LottoryController extends Controller
     
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'label' => 'required',
+            'docs' => 'required',
+            'start' => 'required',
+            'end' => 'required',
+            'release' => 'required',
+            'people_number' => 'required',
+            'award' => 'required',
+        ]);
+
         $validRecords = [];  // 抽奖池
         $records = Record::all(); // select *
         
