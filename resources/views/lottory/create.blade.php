@@ -1,56 +1,55 @@
-@extends('layouts.default')
-@section('title', '抽奖规则填写')
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>抽奖平台</title>
+  <link rel="stylesheet" href="css/style.css">
 
-@section('content')
-<div class="col-md-offset-2 col-md-8">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h5>抽奖规则填写</h5>
-    </div>
-    <div class="panel-body">
-      <!--@include('shared._errors')-->
+</head>
 
-      <form method="POST" action="{{ route('draw.store') }}">
-          {{ csrf_field() }}
+<body>
+    <h1>抽奖平台</h1>
+    <div class="container">
 
-          <div class="form-group">
-            <label for="label">抽奖关键词：</label>
-            <input type="text" name="label" class="form-control" value="{{ old('label') }}">
+    
+              <form method="post"   action="{{ route('draw.store') }}" >    <!-- 看这里看这里！！！！ -->
+               {{ csrf_field() }}
+     
+
+          <span>关键词标签：</span>
+          <input type="text" name="lable" class="text">
+
+          <span>抽奖人数：</span>
+          <input type="text" name="people_number" class="text" >
+
+          <span>奖品列表：</span>
+          <input type="text" name="list" class="text">
+
+          <span>抽奖文案：</span>
+          <input type="text" name="activity" class="text" >
+
+          <span>开始时间:</span> <input type="datetime-local" step="01" class="time" name="start"/>
+
+          <span>截止时间:</span> <input type="datetime-local" step="01" class="time" name="end"/>
+
+          <span>公布时间:</span> <input type="datetime-local" step="01" class="time" name="release"/>
+
+          <div class="check">
+
+            过滤选项：
+            <label><input name="silence" class="checkbox" type="checkbox" value="" />平时未发言 </label>
+
+            <label><input name="nonshort"  class="checkbox" type="checkbox" value="" />发言长度 </label>
           </div>
+        <div>
+            <input type="submit" class="submit" onclick="" value="查看抽奖结果">
+        </div>
 
-          <div class="form-group">
-            <label for="docs">文案：</label>
-            <input type="text" name="docs" class="form-control" value="{{ old('docs') }}">
-          </div>
+    </form>
 
-          <div class="form-group">
-            <label for="start">开始时段：</label>
-            <input type="text" name="start" class="form-control" value="{{ old('start') }}">
-          </div>
-
-          <div class="form-group">
-            <label for="end">结束时段：</label>
-            <input type="text" name="end" class="form-control" value="{{ old('end') }}">
-          </div>
-
-          <div class="form-group">
-            <label for="release">公布时间：</label>
-            <input type="text" name="release" class="form-control" value="{{ old('release') }}">
-          </div>
-
-          <div class="form-group">
-            <label for="people_number">获奖人数：</label>
-            <input type="text" name="people_number" class="form-control" value="{{ old('people_number') }}">
-          </div>
-
-          <div class="form-group">
-            <label for="award">奖品：</label>
-            <input type="text" name="award" class="form-control" value="{{ old('people_number') }}">
-          </div>
-
-          <button type="submit" class="btn btn-primary">提交</button>
-      </form>
-    </div>
   </div>
-</div>
-@stop
+  <div class="footer">
+    <p> &copy; 2018  爸爸饿了战队</p>
+  </div>
+</body>
+</html>
