@@ -74,6 +74,24 @@ class LottoryController extends Controller
                 }
             }
         }
+        
+        if($request->has('filter')) // 深度过滤（根据发言频率智能屏蔽用户）
+        {
+            for($i = 0; $i < $QQnumberCount; $i++) // 对于每一个QQ
+            {
+                $is_Active = false;
+                /* 不活跃用户定义：todo */
+                $speakCount = Record::where('qqnumber',$validQQnumber[$i])->count();
+                if ($speakCount >= 15){
+                    $is_Active = true;
+                }
+                if($is_Active == false) // 都查看他是否最近是深度用户
+                {
+                    array_splice($validQQnumber, $i, 1); // 如果不是深度用户，就从抽奖名单中剔除
+                    $QQnumberCount--;
+                }
+            }            
+        }
 
         $luckyDog = []; // 中奖幸运儿
         $validQQCount = count($validQQnumber); // 有资格参与抽奖的人的数量比预设中奖人数还少，就全体中奖
