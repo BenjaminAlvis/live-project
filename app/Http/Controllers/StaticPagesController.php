@@ -54,4 +54,5 @@ class StaticPagesController extends Controller
         fclose($file);
         return '123';
     }
+    
 }

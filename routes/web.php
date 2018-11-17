@@ -30,3 +30,7 @@ Route::resource('users', 'UsersController');
 
 // 从.csv文件中导入信息到数据库
 Route::get('/importdata','StaticPagesController@importdata')->name('importdata');
+
+// 填写抽奖表单
+Route::get('/draw', 'LottoryController@create')->name('draw');
+Route::post('/draw', 'LottoryController@store')->name('draw.store');
