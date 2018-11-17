@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Record;
 use Illuminate\Http\Request; // 引用在 PHP 文件中要使用的类
 
 class StaticPagesController extends Controller
@@ -23,7 +24,7 @@ class StaticPagesController extends Controller
     {
         return view('static_pages/about');
     }
-    public function test(Request $request)
+    public function test(Request $request) //简单json测试 
     {
         $data= $request->getContent();
         $data = json_decode($data);
@@ -34,5 +35,22 @@ class StaticPagesController extends Controller
             'username' => $value,
             'userid' => $userid
         ]);
+    }
+
+    public function importdata() // 从.csv文件中导入数据到数据库
+    {
+        $file = fopen("data.csv","r");
+
+        while(!feof($file))
+        {
+            $data = (fgetcsv($file));
+            $record = Record::create([
+                'qqnumber' => $data[0],
+                'time' => $data[1],
+                'label' => $data[2],
+                'content' => $data[3],
+            ]);
+        }
+        fclose($file);
     }
 }
