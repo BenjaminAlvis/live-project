@@ -74,7 +74,7 @@ class LottoryController extends Controller
                 }
             }
         }
-        
+
         if($request->has('filter')) // 深度过滤（根据发言频率智能屏蔽用户）
         {
             for($i = 0; $i < $QQnumberCount; $i++) // 对于每一个QQ
@@ -112,10 +112,10 @@ class LottoryController extends Controller
 
        // return $luckyDog;
         $luckyDog2['member_list'] = $luckyDog;
+        $luckyDog2['docs'] = $request->docs;
+        $luckyDog2['award'] = $request->award;
+        $luckyDog2['people_number'] = $request->people_number;
         return view('lottory.result', $luckyDog2);
-
-
-
         // return redirect()->route('draw.result', $luckyDog, $luckyDog);
     }
 
