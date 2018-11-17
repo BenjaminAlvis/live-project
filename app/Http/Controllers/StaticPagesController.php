@@ -39,7 +39,7 @@ class StaticPagesController extends Controller
 
     public function importdata() // 从.csv文件中导入数据到数据库
     {
-        $file = fopen("data.csv","r");
+        $file = fopen("./results.csv","r");
 
         while(!feof($file))
         {
@@ -52,5 +52,6 @@ class StaticPagesController extends Controller
             ]);
         }
         fclose($file);
+        return '123';
     }
 }
