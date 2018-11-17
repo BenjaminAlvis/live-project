@@ -38,14 +38,13 @@ class LottoryController extends Controller
             if (($recordDate >= $startDate) &&
                 ($recordDate <= $endDate))  // 筛选存在于抽奖时间段之内的聊天记录
                 {
-                    if (($this->checkLabel($record, $request)) // 发言记录要包含抽奖标签
-                        and ($this->checkRestrictCond($record, $request)))
+                    if ($this->checkLabel($record, $request)) // 发言记录要包含抽奖标签
                     {
                         array_push($validRecords,$record);
                     }
                 }
         }
-        
+
         // 由于可能存在重复的QQ号，设计如下逻辑：遍历validRecords，将其中的qqnumber存入validQQnumber数组，**去重**
 
         $validQQnumber = [];
@@ -54,7 +53,27 @@ class LottoryController extends Controller
             if(in_array($record->qqnumber , $validQQnumber) == false)
                 array_push($validQQnumber, $record->qqnumber);
         }
+        
+        $QQnumberCount = count($validQQnumber);
 
+        if($request->has('block')) // 屏蔽平时未发言用户
+        {
+            //echo "有屏蔽未发言用户";
+            for($i = 0; $i < $QQnumberCount; $i++) // 对于每一个QQ
+            {
+                $is_Active = false;
+                /* 不活跃用户定义*/
+                $speakCount = Record::where('qqnumber',$validQQnumber[$i])->count();
+                if ($speakCount >= 5){
+                    $is_Active = true;
+                }
+                if($is_Active == false) // 都查看他是否最近是活跃用户
+                {
+                    array_splice($validQQnumber, $i, 1); // 如果不是活跃用户，就从抽奖名单中剔除
+                    $QQnumberCount--;
+                }
+            }
+        }
 
         $luckyDog = []; // 中奖幸运儿
         $validQQCount = count($validQQnumber); // 有资格参与抽奖的人的数量比预设中奖人数还少，就全体中奖
@@ -72,16 +91,37 @@ class LottoryController extends Controller
             array_push($luckyDog, $validQQnumber[$randNum]);
             array_splice($validQQnumber, $randNum,1);
         }
-        return $luckyDog;
+
+       // return $luckyDog;
+        $luckyDog2['member_list'] = $luckyDog;
+        return view('lottory.result', $luckyDog2);
+
+
+
+        // return redirect()->route('draw.result', $luckyDog, $luckyDog);
     }
-    function checkLabel(Record $record,Request $request)
+
+    public function result($luckyDog)
     {
+        return view('lottory.result', $luckyDog);
+    }
+
+   
+    function checkLabel(Record $record,Request $request){
         $ret = true;
         
-        if (strpos(($record->label),$request->label) == FALSE){
-            $ret = false;
-        }
+        $requestLabels = explode(" ",$request->label); // 返回表单中填写的抽奖关键词的数组
         
+
+        foreach ($requestLabels as $requestLabel) // 对于每一个关键词规则，
+        {
+            if (strpos(($record->label),$requestLabel) == FALSE){ // 都在聊天记录中查找该子串
+                {
+                    $ret = false; // 如果有一个没找到，就返回 false
+                    break;
+                }
+            }
+        }
         return $ret;
     }
 

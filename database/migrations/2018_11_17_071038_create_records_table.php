@@ -18,7 +18,7 @@ class CreateRecordsTable extends Migration
             $table->string('qqnumber'); 
             $table->string('time');
             $table->string('label');
-            $table->string('content');
+            $table->string('content', 1024);
             $table->timestamps(); 
         });
     }

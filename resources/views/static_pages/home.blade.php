@@ -1,15 +1,15 @@
 @extends('layouts.default')
 @section('content')
 <div class="jumbotron">
-    <h1>Hello Laravel</h1>
+    <h1>你好，旅行者</h1>
     <p class="lead">
-      你现在所看到的是 <a href="https://laravel-china.org/courses/laravel-essential-training-5.5">Laravel 入门教程</a> 的示例项目主页。
+      这里是<a href="https://edu.cnblogs.com/campus/fzu/Grade2016SE/homework/2397">福大软工1816 · 团队现场编程实战</a>的抽奖系统项目主页
     </p>
     <p>
-      一切，将从这里开始。
+      请按“开始抽奖”按钮开始填写抽奖规则
     </p>
     <p>
-      <a class="btn btn-lg btn-success" href="{{route('signup')}}" role="button">现在注册</a>
+      <a class="btn btn-lg btn-success" href="{{route('signup')}}" role="button">开始抽奖</a>
     </p>
   </div>
 @stop

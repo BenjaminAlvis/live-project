@@ -10,7 +10,7 @@
     <div class="panel-body">
       @include('shared._errors')
 
-      <form method="POST" action="{{ route('users.store') }}">
+      <form  id="frm" method="POST" action="{{ route('users.store') }}">
           {{ csrf_field() }}
 
           <div class="form-group">
@@ -33,9 +33,10 @@
             <input type="password" name="password_confirmation" class="form-control" value="{{ old('password_confirmation') }}">
           </div>
 
-          <button type="submit" class="btn btn-primary">注册</button>
+          <button id="sub"  type="submit" class="btn btn-primary">注册</button>
       </form>
     </div>
   </div>
 </div>
+
 @stop

@@ -1,9 +1,9 @@
 <div class="col-md-12">
   <footer class="footer">
     <small class="slogon">
-      <img class="brand-icon" src="https://iocaffcdn.phphub.org/uploads/images/201612/12/1/iq7WQc2iuW.png?imageView2/1/w/34/h/34">
-      <a href="https://laravel-china.org/courses">
-        刻意练习，每日精进
+      <img class="brand-icon" src="logo.png">
+      <!-- <a href="https://laravel-china.org/courses"> -->
+        2016级软工实践K班爸爸饿了战队
       </a>
     </small>
     <nav>
