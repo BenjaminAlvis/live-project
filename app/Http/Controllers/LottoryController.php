@@ -74,7 +74,8 @@ class LottoryController extends Controller
         }
         return $luckyDog;
     }
-    function checkLabel(Record $record,Request $request){
+    function checkLabel(Record $record,Request $request)
+    {
         $ret = true;
         
         if (strpos(($record->label),$request->label) == FALSE){
