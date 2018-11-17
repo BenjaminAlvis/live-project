@@ -42,14 +42,15 @@
 <body>
     
 
-	<h1>本次的中奖的幸运儿是:
-	<br>
-    </h1>
+	<h1>本次的中奖的幸运儿如下<br>
+    
+    他们将共享本次抽奖的奖品：{{$award}}<br>
+    {{$docs}}
+</h1>
     
 	<table class=table1_1 id='table'>
-		
       <tr>
-        <th>获奖者</th>
+        <th>获奖者QQ号或邮箱</th>
       </tr>
       
       <?php
