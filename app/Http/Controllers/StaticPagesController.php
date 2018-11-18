@@ -37,7 +37,14 @@ class StaticPagesController extends Controller
         ]);
     }
 
-    public function importdata() // 从.csv文件中导入数据到数据库
+    /*
+    importdata：抽奖系统作业中，从一个.csv文件中读取数据存放到数据库里
+    访问url: /importdata
+    .csv文件放于public文件夹中
+    若存储成功返回值'123'
+    作者：赵畅
+    */
+    public function importdata() 
     {
         $file = fopen("./results.csv","r");
 
