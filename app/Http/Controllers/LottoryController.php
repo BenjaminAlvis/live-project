@@ -22,9 +22,9 @@ class LottoryController extends Controller
         $this->validate($request, [
             'label' => 'required',
             'docs' => 'required',
-            'start' => 'required',
-            'end' => 'required',
-            'release' => 'required',
+            'start' => 'required|date',
+            'end' => 'required|date|after:start',
+            'release' => 'required|date|after:end',
             'people_number' => 'required',
             'award' => 'required',
         ]);
