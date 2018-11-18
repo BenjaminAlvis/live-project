@@ -25,7 +25,7 @@ class LottoryController extends Controller
             'start' => 'required|date',
             'end' => 'required|date|after:start',
             'release' => 'required|date|after:end',
-            'people_number' => 'required',
+            'people_number' => 'required|integer|min:1',
             'award' => 'required',
         ]);
 
